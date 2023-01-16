@@ -28,9 +28,13 @@ public class SuervyController {
     }
 
     @PostMapping
-    public void addNewSuervy(@RequestBody Survey survey){
+    public ResponseEntity<String> addNewSuervy(@RequestBody Survey survey ){
         suervyService.addnewSuervey(survey);
-
+        return new ResponseEntity<>(
+                "survey has initiated with new ID of"+survey.getId(),
+                HttpStatus.OK);
     }
+
+
 
 }
