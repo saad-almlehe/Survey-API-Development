@@ -10,7 +10,7 @@ import java.util.List;
 public class Survey {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     private String title;
     private String startDate;
@@ -18,7 +18,7 @@ public class Survey {
     private String max_response;
     private String active;
 
-    public Survey(int id, String title, String startDate, String endDate, String max_response, String active) {
+    public Survey(Long id, String title, String startDate, String endDate, String max_response, String active) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -37,11 +37,11 @@ public class Survey {
 
     public Survey(){}
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
