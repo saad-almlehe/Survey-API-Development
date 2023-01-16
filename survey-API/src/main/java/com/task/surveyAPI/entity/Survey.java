@@ -38,6 +38,15 @@ public class Survey {
         this.question=question;
     }
 
+    public Survey(String title, String startDate, String endDate, String max_response, String active) {
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.max_response = max_response;
+        this.active = active;
+
+    }
+
     public Survey(){}
 
     public Long getId() {

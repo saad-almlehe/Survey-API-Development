@@ -1,6 +1,7 @@
 package com.task.surveyAPI.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Question {
@@ -10,6 +11,10 @@ public class Question {
     private Long id;
 
     private String question;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_question_id",referencedColumnName = "id")
+    private List<Answer> answers;
 
 
     public Question() {
@@ -21,9 +26,22 @@ public class Question {
 
     }
 
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
     public Question(String question) {
         this.question = question;
 
+    }
+
+    public Question(String question,List<Answer> answers) {
+        this.question = question;
+        this.answers=answers;
     }
 
 
