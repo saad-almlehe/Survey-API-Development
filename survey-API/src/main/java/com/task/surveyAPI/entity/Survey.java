@@ -1,7 +1,13 @@
 package com.task.surveyAPI.entity;
 
+
+import net.bytebuddy.implementation.bind.annotation.Empty;
+import org.springframework.lang.NonNull;
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.*;
 import java.util.List;
+
 
 @Entity
 public class Survey {
@@ -10,16 +16,27 @@ public class Survey {
     private Long id;
 
     private String title;
+
+    private String description;
+
     private String startDate;
+
+
     private String endDate;
+
+
     private String max_response;
+
+
     private String active;
+
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_survey_id",referencedColumnName = "id")
     private List<Question> question;
 
 
-    public Survey(Long id, String title, String startDate, String endDate, String max_response, String active,List<Question> question) {
+    public Survey(Long id, String title, String startDate, String endDate, String max_response, String active,String description,List<Question> question) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -27,27 +44,41 @@ public class Survey {
         this.max_response = max_response;
         this.active = active;
         this.question=question;
+        this.description=description;
     }
 
-    public Survey(String title, String startDate, String endDate, String max_response, String active,List<Question> question) {
+    public Survey(String title, String startDate, String endDate, String max_response, String active,String description,List<Question> question) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.max_response = max_response;
         this.active = active;
         this.question=question;
+        this.description=description;
     }
 
-    public Survey(String title, String startDate, String endDate, String max_response, String active) {
+    public Survey(String title, String startDate, String endDate, String max_response, String active,String description) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.max_response = max_response;
         this.active = active;
+        this.description=description;
+
 
     }
 
     public Survey(){}
+
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Long getId() {
         return id;

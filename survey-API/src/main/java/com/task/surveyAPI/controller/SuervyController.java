@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
@@ -29,12 +30,12 @@ public class SuervyController {
 
     @PostMapping
     public ResponseEntity<String> addNewSuervy(@RequestBody Survey survey ){
-        suervyService.addnewSuervey(survey);
-        return new ResponseEntity<>(
-                "survey has initiated with new ID of"+survey.getId(),
-                HttpStatus.OK);
+        return suervyService.addnewSuervey(survey);
     }
 
+    //ResponseEntity<>(
+    //                "survey has initiated with new ID of"+survey.getId(),
+    //                HttpStatus.OK);
 
 
 }
