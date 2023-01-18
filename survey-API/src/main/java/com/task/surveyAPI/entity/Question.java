@@ -12,6 +12,7 @@ public class Question {
 
     private String question;
 
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_question_id",referencedColumnName = "id")
     private List<Answer> answers;
@@ -43,6 +44,8 @@ public class Question {
         this.question = question;
         this.answers=answers;
     }
+
+
 
 
     public Long getId() {

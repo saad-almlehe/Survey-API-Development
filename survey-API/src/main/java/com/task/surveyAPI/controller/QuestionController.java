@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/survey/questions")
+@RequestMapping("api/survey/{id}/question")
 public class QuestionController {
 
     private QuestionSerivce questionSerivce;
@@ -27,9 +27,9 @@ public class QuestionController {
 
 
     @GetMapping
-        public ResponseEntity<List<Question>> getAllQuestions() {
-        List<Question> list = questionSerivce.retrievequestions();
-        return new ResponseEntity<List<Question>>(list, HttpStatus.OK);
+        public List<Question> getSuervyQuestions(@PathVariable Long id) {
+
+        return questionSerivce.retrieveSuervyquestions(id);
     }
 
     @PostMapping

@@ -36,6 +36,7 @@ public class Survey {
     private List<Question> question;
 
 
+
     public Survey(Long id, String title, String startDate, String endDate, String max_response, String active,String description,List<Question> question) {
         this.id = id;
         this.title = title;

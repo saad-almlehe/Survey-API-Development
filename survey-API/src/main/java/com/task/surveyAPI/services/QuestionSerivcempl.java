@@ -16,9 +16,9 @@ public class QuestionSerivcempl implements QuestionSerivce {
     private QuestionRepository questionRepository;
 
 
-    public List<Question> retrievequestions(){
+    public List<Question> retrieveSuervyquestions(Long id){
 
-       return (List<Question>) questionRepository.findAll();
+        return questionRepository.findQuestionsSuervy(id);
     }
 
     public void addnewQuestion(Question question){
