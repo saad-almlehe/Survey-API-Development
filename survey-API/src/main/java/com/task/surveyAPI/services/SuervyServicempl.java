@@ -21,6 +21,14 @@ public class SuervyServicempl implements SuervyService{
         return (List<Survey>) surevyRepository.findAll();
     }
 
+    public Survey retrieveSuervyByID(Long id){
+
+        System.out.println(surevyRepository.findSuervyByid(id));
+
+        return surevyRepository.findSuervyByid(id);
+
+    }
+
     public ResponseEntity<String> addnewSuervey(Survey survey){
 
         if(!validateMandtoryfields(survey)){
@@ -31,6 +39,7 @@ public class SuervyServicempl implements SuervyService{
 
         return new ResponseEntity<>("survey has initiated with new ID of"+survey.getId() , HttpStatus.OK);
     }
+
 
 
     public boolean validateMandtoryfields(Survey survey){
@@ -45,9 +54,6 @@ public class SuervyServicempl implements SuervyService{
             return false;
 
         else if(survey.getEndDate() == null || survey.getEndDate().isEmpty())
-            return false;
-
-        else if(survey.getType() == null || survey.getType().isEmpty())
             return false;
 
         else return true;

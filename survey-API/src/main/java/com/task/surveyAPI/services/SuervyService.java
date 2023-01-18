@@ -14,5 +14,5 @@ public interface SuervyService {
       boolean validateMandtoryfields(Survey survey);
 
 
-
+    Survey retrieveSuervyByID(Long id);
 }

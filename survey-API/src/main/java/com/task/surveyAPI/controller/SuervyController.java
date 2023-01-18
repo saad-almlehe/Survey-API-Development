@@ -28,10 +28,18 @@ public class SuervyController {
         return new ResponseEntity<List<Survey>>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public Survey getSuervybyID(@PathVariable Long id) {
+
+        return suervyService.retrieveSuervyByID(id);
+    }
+
     @PostMapping
     public ResponseEntity<String> addNewSuervy(@RequestBody Survey survey ){
         return suervyService.addnewSuervey(survey);
     }
+
+
 
     //ResponseEntity<>(
     //                "survey has initiated with new ID of"+survey.getId(),

@@ -26,6 +26,10 @@ public class Question {
 
     }
 
+    public Question(String question) {
+        this.question = question;
+    }
+
     public List<Answer> getAnswers() {
         return answers;
     }
@@ -34,10 +38,6 @@ public class Question {
         this.answers = answers;
     }
 
-    public Question(String question) {
-        this.question = question;
-
-    }
 
     public Question(String question,List<Answer> answers) {
         this.question = question;
