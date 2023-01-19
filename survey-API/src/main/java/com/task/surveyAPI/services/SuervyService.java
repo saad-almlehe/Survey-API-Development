@@ -15,4 +15,8 @@ public interface SuervyService {
 
 
     Survey retrieveSuervyByID(Long id);
+
+    ResponseEntity<String> updateSuervyByID(Long id, Survey survey);
+
+    ResponseEntity<String> DeleteSuervyByID(Long id);
 }

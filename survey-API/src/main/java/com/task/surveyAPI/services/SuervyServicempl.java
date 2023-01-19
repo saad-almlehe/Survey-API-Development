@@ -40,6 +40,35 @@ public class SuervyServicempl implements SuervyService{
         return new ResponseEntity<>("survey has initiated with new ID of"+survey.getId() , HttpStatus.OK);
     }
 
+    public ResponseEntity<String> updateSuervyByID(Long id, Survey survey){
+
+        if(surevyRepository.findSuervyByid(id) != null){
+            survey.setId(id);
+            surevyRepository.save(survey);
+            return new ResponseEntity<>("survey has updated with ID of"+ survey.getId() , HttpStatus.OK);
+        }
+
+
+
+        return new ResponseEntity<>("suervey ID inccrooect", HttpStatus.NOT_FOUND);
+
+                //surevyRepository.updateSuervy(id,updatedSuervy.getTitle(),updatedSuervy.getDescription(),updatedSuervy.getStartDate(),updatedSuervy.getEndDate()
+        //                                             ,updatedSuervy.getMax_response(),updatedSuervy.getActive(),updatedSuervy.getQuestion());
+
+
+    }
+    public ResponseEntity<String> DeleteSuervyByID(Long id){
+
+        if(surevyRepository.findSuervyByid(id) != null){
+            Long delted = id;
+            surevyRepository.deleteById(id);
+            return new ResponseEntity<>("survey has deleted with ID of "+delted, HttpStatus.OK);
+
+        }
+
+        return new ResponseEntity<>("suervey ID inccrooect", HttpStatus.NOT_FOUND);
+    }
+
 
 
     public boolean validateMandtoryfields(Survey survey){

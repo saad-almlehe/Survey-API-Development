@@ -39,6 +39,22 @@ public class SuervyController {
         return suervyService.addnewSuervey(survey);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateSuervy(@PathVariable Long id,@RequestBody Survey survey) {
+        return suervyService.updateSuervyByID(id,survey);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSuervy(@PathVariable Long id) {
+        return suervyService.DeleteSuervyByID(id);
+    }
+
+
+
+
+    }
+
+
 
 
     //ResponseEntity<>(
@@ -46,4 +62,4 @@ public class SuervyController {
     //                HttpStatus.OK);
 
 
-}
+
