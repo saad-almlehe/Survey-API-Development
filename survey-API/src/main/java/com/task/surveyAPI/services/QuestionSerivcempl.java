@@ -1,10 +1,10 @@
 package com.task.surveyAPI.services;
 
 import com.task.surveyAPI.entity.Question;
-import com.task.surveyAPI.entity.Survey;
-import com.task.surveyAPI.repository.AnswerRepository;
 import com.task.surveyAPI.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,9 +21,13 @@ public class QuestionSerivcempl implements QuestionSerivce {
         return questionRepository.findQuestionsSuervy(id);
     }
 
-    public void addnewQuestion(Question question){
+    public ResponseEntity<String> addnewQuestion(Long id, Question question){
 
         questionRepository.save(question);
+
+        questionRepository.addQuestionTosuervy(id,question.getId());
+
+        return new ResponseEntity<>("question has been added to survey ID "+ id  , HttpStatus.OK);
     }
 
 

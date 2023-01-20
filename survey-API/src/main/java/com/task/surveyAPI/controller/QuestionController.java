@@ -33,11 +33,9 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addNewquestion( @RequestBody Question question ){
-        questionSerivce.addnewQuestion(question);
-        return new ResponseEntity<>(
-                "survey has initiated with new ID of"+question.getId(),
-                HttpStatus.OK);
+    public ResponseEntity<String> addNewquestion( @PathVariable Long id , @RequestBody Question question ){
+
+        return questionSerivce.addnewQuestion(id, question);
     }
 
 }

@@ -37,6 +37,13 @@ public class Survey {
 
 
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_survey_id",referencedColumnName = "id")
+    private List<Response> responses;
+
+
+
+
     public Survey(Long id, String title, String startDate, String endDate, String max_response, String active,String description,List<Question> question) {
         this.id = id;
         this.title = title;
@@ -135,5 +142,13 @@ public class Survey {
 
     public void setActive(String active) {
         this.active = active;
+    }
+
+    public List<Response> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(List<Response> responses) {
+        this.responses = responses;
     }
 }

@@ -7,22 +7,22 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Answer {
+public class Options {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String answer;
 
-    public Answer() {
+    public Options() {
     }
 
-    public Answer(Long id, String answer) {
+    public Options(Long id, String answer) {
         this.id = id;
         this.answer = answer;
     }
 
-    public Answer(String answer) {
+    public Options(String answer) {
         this.answer = answer;
     }
 

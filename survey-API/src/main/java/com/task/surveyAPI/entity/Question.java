@@ -15,7 +15,7 @@ public class Question {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_question_id",referencedColumnName = "id")
-    private List<Answer> answers;
+    private List<Options> options;
 
 
     public Question() {
@@ -31,18 +31,18 @@ public class Question {
         this.question = question;
     }
 
-    public List<Answer> getAnswers() {
-        return answers;
+    public List<Options> getAnswers() {
+        return options;
     }
 
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
+    public void setAnswers(List<Options> options) {
+        this.options = options;
     }
 
 
-    public Question(String question,List<Answer> answers) {
+    public Question(String question,List<Options> options) {
         this.question = question;
-        this.answers=answers;
+        this.options = options;
     }
 
 
