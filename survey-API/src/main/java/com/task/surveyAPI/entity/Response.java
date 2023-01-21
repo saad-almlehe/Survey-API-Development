@@ -20,23 +20,23 @@ public class Response {
 
     private Long questionID;
 
-    private HashMap<Long,String> responses = new HashMap<>();
+    private HashMap<Long,String> answer = new HashMap<>();
 
 
     public Response() {
     }
 
-    public Response(Long id, Long questionID, HashMap<Long, String> responses , String username , String date ) {
+    public Response(Long id, Long questionID, HashMap<Long, String> answer, String username , String date ) {
         this.id = id;
         this.questionID = questionID;
-        this.responses = responses;
+        this.answer = answer;
         this.date = date;
         this.username =username;
     }
 
     public Response(Long questionID, HashMap<Long, String> responsesm,String username , String date) {
         this.questionID = questionID;
-        this.responses = responses;
+        this.answer = answer;
         this.date = date;
         this.username =username;
     }
@@ -57,12 +57,12 @@ public class Response {
         this.questionID = questionID;
     }
 
-    public HashMap<Long, String> getResponses() {
-        return responses;
+    public HashMap<Long, String> getAnswer() {
+        return answer;
     }
 
-    public void setResponses(HashMap<Long, String> responses) {
-        this.responses = responses;
+    public void setAnswer(HashMap<Long, String> answer) {
+        this.answer = answer;
     }
 
     public String getUsername() {

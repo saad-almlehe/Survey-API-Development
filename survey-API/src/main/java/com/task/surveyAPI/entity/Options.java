@@ -12,18 +12,18 @@ public class Options {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String answer;
+    private String option;
 
     public Options() {
     }
 
-    public Options(Long id, String answer) {
+    public Options(Long id, String option) {
         this.id = id;
-        this.answer = answer;
+        this.option = option;
     }
 
-    public Options(String answer) {
-        this.answer = answer;
+    public Options(String option) {
+        this.option = option;
     }
 
     public Long getId() {
@@ -34,11 +34,11 @@ public class Options {
         this.id = id;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getOption() {
+        return option;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setOption(String option) {
+        this.option = option;
     }
 }

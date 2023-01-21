@@ -1,11 +1,17 @@
 package com.task.surveyAPI.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.bytebuddy.implementation.bind.annotation.Empty;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,22 +21,30 @@ public class Survey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @NotBlank(message = "missing mandatory field title")
     private String title;
 
     private String description;
 
-    private String startDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate startDate;
+
+    @NotNull(message = "missing mandatory field endDate")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate endDate;
+
+    @NotNull(message = "missing mandatory field max_response")
+    @Min(1)
+    @Max(1000)
+    private Integer max_response;
 
 
-    private String endDate;
+
+    private boolean active;
 
 
-    private String max_response;
-
-
-    private String active;
-
-
+    @Valid
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_survey_id",referencedColumnName = "id")
     private List<Question> question;
@@ -44,7 +58,7 @@ public class Survey {
 
 
 
-    public Survey(Long id, String title, String startDate, String endDate, String max_response, String active,String description,List<Question> question) {
+    public Survey(Long id, String title, LocalDate startDate, LocalDate endDate, Integer max_response, boolean active,String description,List<Question> question) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -55,7 +69,7 @@ public class Survey {
         this.description=description;
     }
 
-    public Survey(String title, String startDate, String endDate, String max_response, String active,String description,List<Question> question) {
+    public Survey(String title, LocalDate startDate, LocalDate endDate, Integer max_response, boolean active,String description,List<Question> question) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -65,7 +79,7 @@ public class Survey {
         this.description=description;
     }
 
-    public Survey(String title, String startDate, String endDate, String max_response, String active,String description) {
+    public Survey(String title, LocalDate startDate, LocalDate endDate, Integer max_response, boolean active,String description) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -112,35 +126,35 @@ public class Survey {
         this.title = title;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public String getMax_response() {
+    public Integer getMax_response() {
         return max_response;
     }
 
-    public void setMax_response(String max_response) {
+    public void setMax_response(Integer max_response) {
         this.max_response = max_response;
     }
 
-    public String getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

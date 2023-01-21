@@ -1,6 +1,8 @@
 package com.task.surveyAPI.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,7 +12,12 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "missing mandatory filed question")
     private String question;
+
+    @NotNull(message = "missing is a question mandatory or not")
+    private boolean mandatory;
+
 
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -31,18 +38,19 @@ public class Question {
         this.question = question;
     }
 
-    public List<Options> getAnswers() {
+    public List<Options> getoptions() {
         return options;
     }
 
-    public void setAnswers(List<Options> options) {
+    public void setoptions(List<Options> options) {
         this.options = options;
     }
 
 
-    public Question(String question,List<Options> options) {
+    public Question(String question,boolean mandatory,List<Options> options) {
         this.question = question;
         this.options = options;
+        this.mandatory=mandatory;
     }
 
 
@@ -63,4 +71,14 @@ public class Question {
     public void setQuestion(String question) {
         this.question = question;
     }
+
+
+    public boolean isMandatory() {
+        return mandatory;
+    }
+
+    public void setMandatory(boolean mandatory) {
+        this.mandatory = mandatory;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.task.surveyAPI.services;
 
+import com.task.surveyAPI.Exception.NotFoundException;
 import com.task.surveyAPI.entity.Question;
 import com.task.surveyAPI.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +17,30 @@ public class QuestionSerivcempl implements QuestionSerivce {
     private QuestionRepository questionRepository;
 
 
-    public List<Question> retrieveSuervyquestions(Long id){
+    public List<Question> retrieveSuervyquestions(Long id) throws NotFoundException {
 
-        return questionRepository.findQuestionsSuervy(id);
+        List<Question> questions = questionRepository.findQuestionsSuervy(id);
+
+        if(questions != null){
+            return questions;
+        } else throw new NotFoundException("suervy with ID"+id+" is not found");
     }
 
-    public ResponseEntity<String> addnewQuestion(Long id, Question question){
+    public ResponseEntity<String> addnewQuestion(Long id, Question question) throws NotFoundException {
 
-        questionRepository.save(question);
+        if(questionRepository.findQuestionsSuervy(id) != null){
 
-        questionRepository.addQuestionTosuervy(id,question.getId());
 
-        return new ResponseEntity<>("question has been added to survey ID "+ id  , HttpStatus.OK);
+            questionRepository.save(question);
+            questionRepository.addQuestionTosuervy(id,question.getId());
+
+            return new ResponseEntity<>("question has been added to survey ID "+ id  , HttpStatus.OK);
+
+        } else throw new NotFoundException("suervy with ID"+id+" is not found");
+
+
     }
+
 
 
 }

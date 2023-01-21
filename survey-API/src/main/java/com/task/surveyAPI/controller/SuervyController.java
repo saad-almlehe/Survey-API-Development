@@ -1,5 +1,6 @@
 package com.task.surveyAPI.controller;
 
+import com.task.surveyAPI.Exception.NotFoundException;
 import com.task.surveyAPI.entity.Survey;
 import com.task.surveyAPI.services.SuervyService;
 import com.task.surveyAPI.services.SuervyServicempl;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,29 +25,29 @@ public class SuervyController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Survey>> getAllDogs() {
+    public ResponseEntity<List<Survey>> getAllDogs() throws NotFoundException {
         List<Survey> list = suervyService.retrieveSuervys();
         return new ResponseEntity<List<Survey>>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Survey getSuervybyID(@PathVariable Long id) {
+    public Survey getSuervybyID(@PathVariable Long id) throws NotFoundException {
 
         return suervyService.retrieveSuervyByID(id);
     }
 
     @PostMapping
-    public ResponseEntity<String> addNewSuervy(@RequestBody Survey survey ){
+    public ResponseEntity<Object> addNewSuervy(@RequestBody @Valid Survey survey ){
         return suervyService.addnewSuervey(survey);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateSuervy(@PathVariable Long id,@RequestBody Survey survey) {
+    public ResponseEntity<Object> updateSuervy(@PathVariable Long id,@RequestBody @Valid Survey survey) throws NotFoundException {
         return suervyService.updateSuervyByID(id,survey);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSuervy(@PathVariable Long id) {
+    public ResponseEntity<String> deleteSuervy(@PathVariable Long id) throws NotFoundException {
         return suervyService.DeleteSuervyByID(id);
     }
 

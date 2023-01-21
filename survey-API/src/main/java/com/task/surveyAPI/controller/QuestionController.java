@@ -1,5 +1,6 @@
 package com.task.surveyAPI.controller;
 
+import com.task.surveyAPI.Exception.NotFoundException;
 import com.task.surveyAPI.entity.Question;
 import com.task.surveyAPI.entity.Survey;
 import com.task.surveyAPI.services.QuestionSerivce;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -27,13 +29,13 @@ public class QuestionController {
 
 
     @GetMapping
-        public List<Question> getSuervyQuestions(@PathVariable Long id) {
+        public List<Question> getSuervyQuestions(@PathVariable Long id) throws NotFoundException {
 
         return questionSerivce.retrieveSuervyquestions(id);
     }
 
     @PostMapping
-    public ResponseEntity<String> addNewquestion( @PathVariable Long id , @RequestBody Question question ){
+    public ResponseEntity<String> addNewquestion( @PathVariable Long id , @RequestBody @Valid Question question ) throws NotFoundException {
 
         return questionSerivce.addnewQuestion(id, question);
     }

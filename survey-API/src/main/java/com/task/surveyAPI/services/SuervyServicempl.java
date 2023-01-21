@@ -1,5 +1,6 @@
 package com.task.surveyAPI.services;
 
+import com.task.surveyAPI.Exception.NotFoundException;
 import com.task.surveyAPI.entity.Survey;
 import com.task.surveyAPI.repository.QuestionRepository;
 import com.task.surveyAPI.repository.SurevyRepository;
@@ -8,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -16,79 +20,91 @@ public class SuervyServicempl implements SuervyService{
     private SurevyRepository surevyRepository;
 
 
-    public List<Survey> retrieveSuervys(){
+    public List<Survey> retrieveSuervys() throws NotFoundException {
 
-        return (List<Survey>) surevyRepository.findAll();
+        List<Survey> suervy = (List<Survey>) surevyRepository.findAll();
+
+        if(!suervy.isEmpty()){
+            return suervy;
+        }else throw new NotFoundException("no survey stored");
     }
 
-    public Survey retrieveSuervyByID(Long id){
+    public Survey retrieveSuervyByID(Long id) throws NotFoundException {
 
-        System.out.println(surevyRepository.findSuervyByid(id));
-
-        return surevyRepository.findSuervyByid(id);
+        Survey suervy = surevyRepository.findSuervyByid(id);
+        if(suervy != null ){
+            return suervy;
+        }else throw new NotFoundException("Survey not found with ID "+id);
 
     }
 
-    public ResponseEntity<String> addnewSuervey(Survey survey){
+    public ResponseEntity<Object> addnewSuervey(Survey survey){
 
-        if(!validateMandtoryfields(survey)){
-            return new ResponseEntity<>("mandatory field of survey is missing", HttpStatus.BAD_REQUEST);
-        }
+         if(!validateSuervyDate(survey)) {
+             HashMap<String, Object> map = new HashMap<>();
+             map.put("error message","end Date cant be before start date");
+             map.put("timestamp", LocalDateTime.now());
+             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+         }
 
         surevyRepository.save(survey);
 
-        return new ResponseEntity<>("survey has initiated with new ID of"+survey.getId() , HttpStatus.OK);
+        return new ResponseEntity<>("survey has initiated with new ID of "+ survey.getId() , HttpStatus.CREATED);
     }
 
-    public ResponseEntity<String> updateSuervyByID(Long id, Survey survey){
+    public ResponseEntity<Object> updateSuervyByID(Long id, Survey survey) throws NotFoundException {
 
         if(surevyRepository.findSuervyByid(id) != null){
+
+            if(!validateSuervyDate(survey)) {
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("error message","end Date cant be before start date");
+                map.put("timestamp", LocalDateTime.now());
+                return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+            }
+
             survey.setId(id);
             surevyRepository.save(survey);
-            return new ResponseEntity<>("survey has updated with ID of"+ survey.getId() , HttpStatus.OK);
-        }
-
-
-
-        return new ResponseEntity<>("suervey ID inccrooect", HttpStatus.NOT_FOUND);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("Message","survey has updated with ID of"+ survey.getId());
+            map.put("timestamp", LocalDateTime.now());
+            return new ResponseEntity<>(map , HttpStatus.OK);
+        } else throw new NotFoundException("Survey not found with ID "+id);
 
                 //surevyRepository.updateSuervy(id,updatedSuervy.getTitle(),updatedSuervy.getDescription(),updatedSuervy.getStartDate(),updatedSuervy.getEndDate()
         //                                             ,updatedSuervy.getMax_response(),updatedSuervy.getActive(),updatedSuervy.getQuestion());
 
-
     }
-    public ResponseEntity<String> DeleteSuervyByID(Long id){
+    public ResponseEntity<String> DeleteSuervyByID(Long id) throws NotFoundException {
 
         if(surevyRepository.findSuervyByid(id) != null){
             Long delted = id;
             surevyRepository.deleteById(id);
             return new ResponseEntity<>("survey has deleted with ID of "+delted, HttpStatus.OK);
 
+        } else throw new NotFoundException("Survey not found with ID "+id);
+
+
+    }
+
+    public boolean validateSuervyDate (Survey survey){
+
+        if(survey.getStartDate() == null){
+            survey.setStartDate(LocalDate.now());
         }
 
-        return new ResponseEntity<>("suervey ID inccrooect", HttpStatus.NOT_FOUND);
+        if(survey.getEndDate().isBefore(survey.getStartDate())){
+            return false;
+        }
+
+        if(LocalDate.now().isBefore(survey.getEndDate())
+                && LocalDate.now().isAfter(survey.getStartDate()))
+            survey.setActive(true);
+        else survey.setActive(false);
+
+
+        return true;
     }
-
-
-
-    public boolean validateMandtoryfields(Survey survey){
-
-        if (survey.getTitle() == null || survey.getTitle().isEmpty())
-            return false;
-
-        else if (survey.getActive() == null || survey.getActive().isEmpty())
-            return false;
-
-        else if (survey.getMax_response() == null || survey.getMax_response().isEmpty())
-            return false;
-
-        else if(survey.getEndDate() == null || survey.getEndDate().isEmpty())
-            return false;
-
-        else return true;
-
-    }
-
 
     //ResponseEntity<>(
     //                "survey has initiated with new ID of"+survey.getId(),
