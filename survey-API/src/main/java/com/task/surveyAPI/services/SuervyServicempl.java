@@ -75,12 +75,14 @@ public class SuervyServicempl implements SuervyService{
         //                                             ,updatedSuervy.getMax_response(),updatedSuervy.getActive(),updatedSuervy.getQuestion());
 
     }
-    public ResponseEntity<String> DeleteSuervyByID(Long id) throws NotFoundException {
+    public ResponseEntity<Object> DeleteSuervyByID(Long id) throws NotFoundException {
 
         if(surevyRepository.findSuervyByid(id) != null){
-            Long delted = id;
             surevyRepository.deleteById(id);
-            return new ResponseEntity<>("survey has deleted with ID of "+delted, HttpStatus.OK);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("Message","survey has deleted with ID of "+id);
+            map.put("timestamp", LocalDateTime.now());
+            return new ResponseEntity<>(map, HttpStatus.OK);
 
         } else throw new NotFoundException("Survey not found with ID "+id);
 

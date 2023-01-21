@@ -50,7 +50,7 @@ public class Survey {
     private List<Question> question;
 
 
-
+    @Valid
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_survey_id",referencedColumnName = "id")
     private List<Response> responses;

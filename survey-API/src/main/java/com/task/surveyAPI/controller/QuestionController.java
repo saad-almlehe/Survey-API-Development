@@ -35,7 +35,7 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addNewquestion( @PathVariable Long id , @RequestBody @Valid Question question ) throws NotFoundException {
+    public ResponseEntity<Object> addNewquestion( @PathVariable Long id , @RequestBody @Valid Question question ) throws NotFoundException {
 
         return questionSerivce.addnewQuestion(id, question);
     }

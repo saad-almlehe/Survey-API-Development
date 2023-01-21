@@ -1,6 +1,8 @@
 package com.task.surveyAPI.entity;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,14 +12,12 @@ public class Response {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "missing mandatory field username")
     private String username;
 
     private String date;
 
-
-    private Long questionID;
-
-
+    @Valid
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_response_id",referencedColumnName = "id")
     private List<Answers> answers;
@@ -26,16 +26,16 @@ public class Response {
     public Response() {
     }
 
-    public Response(Long id, Long questionID, List<Answers> answers, String username , String date ) {
+    public Response(Long id,  List<Answers> answers, String username , String date ) {
         this.id = id;
-        this.questionID = questionID;
+
         this.answers = answers;
         this.date = date;
         this.username =username;
     }
 
-    public Response(Long questionID, List<Answers> answers, String username , String date) {
-        this.questionID = questionID;
+    public Response(List<Answers> answers, String username , String date) {
+
         this.answers = answers;
         this.date = date;
         this.username =username;
@@ -47,14 +47,6 @@ public class Response {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getQuestionID() {
-        return questionID;
-    }
-
-    public void setQuestionID(Long questionID) {
-        this.questionID = questionID;
     }
 
 

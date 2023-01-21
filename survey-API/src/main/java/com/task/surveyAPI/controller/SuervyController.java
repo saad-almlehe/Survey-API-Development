@@ -47,7 +47,7 @@ public class SuervyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSuervy(@PathVariable Long id) throws NotFoundException {
+    public ResponseEntity<Object> deleteSuervy(@PathVariable Long id) throws NotFoundException {
         return suervyService.DeleteSuervyByID(id);
     }
 

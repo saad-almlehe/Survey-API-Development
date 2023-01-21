@@ -12,11 +12,15 @@ import java.util.List;
 public interface ResponseSerivce {
 
 
-    List<Response> retrieveSuervyResponse(Long id);
+    List<Response> retrieveSuervyResponse(Long id) throws NotFoundException;
 
     ResponseEntity<Object> addnewResponse(Long id, Response response) throws NotFoundException;
 
      boolean checkResponse ( Response response , List<Question> question);
 
      boolean checkSuervyAvailibialty(Survey suervyByid);
+
+    boolean findcrossbondQuestion ( Response response , Long questionID);
+
+    ResponseEntity<Object> DeleteResponseById(Long id) throws NotFoundException;
 }

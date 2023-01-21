@@ -28,7 +28,7 @@ public class QuestionSerivcempl implements QuestionSerivce {
         } else throw new NotFoundException("suervy with ID"+id+" is not found");
     }
 
-    public ResponseEntity<String> addnewQuestion(Long id, Question question) throws NotFoundException {
+    public ResponseEntity<Object> addnewQuestion(Long id, Question question) throws NotFoundException {
 
         if(questionRepository.findQuestionsSuervy(id) != null){
 
@@ -36,7 +36,10 @@ public class QuestionSerivcempl implements QuestionSerivce {
             questionRepository.save(question);
             questionRepository.addQuestionTosuervy(id,question.getId());
 
-            return new ResponseEntity<>("question has been added to survey ID "+ id  , HttpStatus.OK);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("Message","question has been added to survey ID "+ id);
+            map.put("timestamp", LocalDateTime.now());
+            return new ResponseEntity<>(map  , HttpStatus.OK);
 
         } else throw new NotFoundException("suervy with ID "+id+" is not found");
 
@@ -62,7 +65,7 @@ public class QuestionSerivcempl implements QuestionSerivce {
         if(questionRepository.findById(questionId) != null){
             questionRepository.deleteById(questionId);
             HashMap<String, Object> map = new HashMap<>();
-            map.put("Message","question has updated with ID of"+ questionId);
+            map.put("Message","question has been deleted with ID of"+ questionId);
             map.put("timestamp", LocalDateTime.now());
             return new ResponseEntity<>(map , HttpStatus.OK);
         } else throw new NotFoundException("question not found with ID "+questionId);

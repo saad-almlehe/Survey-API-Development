@@ -19,7 +19,7 @@ public interface SuervyService {
 
     ResponseEntity<Object> updateSuervyByID(Long id, Survey survey) throws NotFoundException;
 
-    ResponseEntity<String> DeleteSuervyByID(Long id) throws NotFoundException;
+    ResponseEntity<Object> DeleteSuervyByID(Long id) throws NotFoundException;
 
      boolean validateSuervyDate (Survey survey);
 }
