@@ -1,6 +1,7 @@
 package com.task.surveyAPI.controller;
 
 
+import com.task.surveyAPI.Exception.NotFoundException;
 import com.task.surveyAPI.entity.Question;
 import com.task.surveyAPI.entity.Response;
 import com.task.surveyAPI.services.QuestionSerivce;
@@ -27,7 +28,7 @@ public class ResponseController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> addNewResponse(@PathVariable Long id , @RequestBody Response response ){
+    public ResponseEntity<Object> addNewResponse(@PathVariable Long id , @RequestBody Response response ) throws NotFoundException {
 
         return responseSerivce.addnewResponse(id, response);
     }
