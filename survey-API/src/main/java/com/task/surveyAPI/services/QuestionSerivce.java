@@ -14,6 +14,10 @@ public interface QuestionSerivce {
     List<Question> retrieveSuervyquestions(Long id) throws NotFoundException;
 
     ResponseEntity<String> addnewQuestion(Long id, Question question) throws NotFoundException;
+
+    ResponseEntity<Object> updateSuervyByID(Long questionId, Question question)throws NotFoundException;
+
+    ResponseEntity<Object> DeleteSuervyByID(Long id)throws NotFoundException;
 }
 
 

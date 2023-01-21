@@ -40,4 +40,14 @@ public class QuestionController {
         return questionSerivce.addnewQuestion(id, question);
     }
 
+    @PutMapping("/{questionId}")
+    public ResponseEntity<Object> updatequestion(@PathVariable Long questionId,@RequestBody @Valid Question question) throws NotFoundException {
+        return questionSerivce.updateSuervyByID(questionId,question);
+    }
+
+    @DeleteMapping("/{questionId}")
+    public ResponseEntity<Object> deleteSuervy(@PathVariable Long questionId) throws NotFoundException {
+        return questionSerivce.DeleteSuervyByID(questionId);
+    }
+
 }

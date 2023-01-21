@@ -27,7 +27,7 @@ public class ResponseController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addNewResponse(@PathVariable Long id , @RequestBody Response response ){
+    public ResponseEntity<Object> addNewResponse(@PathVariable Long id , @RequestBody Response response ){
 
         return responseSerivce.addnewResponse(id, response);
     }

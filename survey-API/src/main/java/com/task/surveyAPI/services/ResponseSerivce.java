@@ -11,5 +11,5 @@ public interface ResponseSerivce {
 
     List<Response> retrieveSuervyResponse(Long id);
 
-    ResponseEntity<String> addnewResponse(Long id, Response response);
+    ResponseEntity<Object> addnewResponse(Long id, Response response);
 }
