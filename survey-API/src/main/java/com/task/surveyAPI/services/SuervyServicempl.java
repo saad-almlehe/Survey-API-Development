@@ -99,8 +99,8 @@ public class SuervyServicempl implements SuervyService{
             return false;
         }
 
-        if(LocalDate.now().isBefore(survey.getEndDate())
-                && LocalDate.now().isAfter(survey.getStartDate()))
+        if(LocalDate.now().isBefore(survey.getEndDate())  || (LocalDate.now().equals(survey.getStartDate())
+                && LocalDate.now().isAfter(survey.getStartDate())))
             survey.setActive(true);
         else survey.setActive(false);
 

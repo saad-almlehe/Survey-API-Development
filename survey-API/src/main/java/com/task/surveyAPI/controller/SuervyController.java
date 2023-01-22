@@ -25,7 +25,7 @@ public class SuervyController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Survey>> getAllDogs() throws NotFoundException {
+    public ResponseEntity<List<Survey>> getAllServey() throws NotFoundException {
         List<Survey> list = suervyService.retrieveSuervys();
         return new ResponseEntity<List<Survey>>(list, HttpStatus.OK);
     }
